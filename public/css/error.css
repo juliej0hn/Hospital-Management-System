@@ -1,0 +1,79 @@
+/* =============================================
+   Hayat Hospital — public/css/error.css
+   Error page specific styles
+============================================= */
+
+.error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+}
+.error-card {
+    max-width: 500px;
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 36px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+.error-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    display: block;
+}
+.error-code {
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -2px;
+}
+.error-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+}
+.error-message {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+.error-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.error-actions a {
+    padding: 11px 24px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+}
+.error-actions a:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+.btn-error-home {
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(0,119,182,0.25);
+}
+.btn-error-back {
+    background: var(--surface);
+    color: var(--dark);
+    border: 1px solid var(--border);
+}
+.error-detail-text {
+    color: var(--subtle);
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head', { title: 'Admin Dashboard', extraCss: ['/css/admin-dashboard.css'] }) %>
+</head>
+<body>
+
+    <%- include('../partials/navbar', { role: 'admin' }) %>
+
+    <div class="app-wrap">
+        <div class="view admin-view">
+
+            <div class="view-header">
+                <h3>Admin Dashboard</h3>
+            </div>
+
+            <!-- ── SECTION 1: Add Doctor ── -->
+            <div class="card">
+                <div class="section-header">
+                    <h4>➕ Add New Doctor</h4>
+                </div>
+                <form id="add-doctor-form" onsubmit="addDoctor(event)">
+                    <div class="doctor-form-grid">
+                        <div class="input-group">
+                            <input type="text" id="doctor-name" placeholder="Doctor Name (e.g. Dr. Sarah Ali)" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="doctor-password" placeholder="Password for Doctor" required>
+                        </div>
+                        <div class="input-group">
+                            <select id="doctor-sector" required>
+                                <option value="">Select Sector</option>
+                                <option value="Cardiology">Cardiology</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="General">General</option>
+                                <option value="Orthopedics">Orthopedics</option>
+                            </select>
+                        </div>
+                        <div class="input-group availability-inputs">
+                            <input type="date" id="doctor-date" required>
+                            <div class="time-range">
+                                <input type="time" id="doctor-time-start" required title="Start Time">
+                                <span>to</span>
+                                <input type="time" id="doctor-time-end" required title="End Time">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" id="doctor-avg-time" placeholder="Avg Consult Time (mins, e.g. 15)" min="1" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-form">+ Add Doctor</button>
+                </form>
+            </div>
+
+            <!-- ── SECTION 2: Edit Doctor (hidden until a row is clicked) ── -->
+            <div class="card hidden" id="edit-form-panel">
+                <div class="section-header">
+                    <h4>✏️ Edit Doctor</h4>
+                    <button class="btn-toggle-form" onclick="closeEditForm()">Close</button>
+                </div>
+                <form id="edit-doctor-form" onsubmit="saveEditDoctor(event)">
+                    <input type="hidden" id="edit-doctor-original-name">
+                    <div class="doctor-form-grid">
+                        <div class="input-group">
+                            <input type="text" id="edit-doctor-name" placeholder="Doctor Name" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="edit-doctor-password" placeholder="New Password (leave blank to keep current)">
+                        </div>
+                        <div class="input-group">
+                            <select id="edit-doctor-sector" required>
+                                <option value="Cardiology">Cardiology</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="General">General</option>
+                                <option value="Orthopedics">Orthopedics</option>
+                            </select>
+                        </div>
+                        <div class="input-group availability-inputs">
+                            <input type="date" id="edit-doctor-date" required>
+                            <div class="time-range">
+                                <input type="time" id="edit-doctor-time-start" required title="Start Time">
+                                <span>to</span>
+                                <input type="time" id="edit-doctor-time-end" required title="End Time">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" id="edit-doctor-avg-time" placeholder="Avg Consult Time (mins)" min="1" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-form">💾 Save Changes</button>
+                </form>
+            </div>
+
+            <!-- ── SECTION 3: Live Queue Table ── -->
+            <div class="card">
+                <div class="section-header">
+                    <h4>📋 Live Queue Dashboard</h4>
+                </div>
+                <p class="hint">Click a doctor's name to edit their details.</p>
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Booked / Capacity</th>
+                            <th>Patient Names</th>
+                            <th>Sector</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboard-tbody">
+                        <tr>
+                            <td colspan="4" class="admin-dash-empty">No doctors added yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="server-data" style="display:none;"
+         data-doctors="<%= JSON.stringify(doctors.map(function(d) { return { name: d.name, sector: d.sector, timeSlot: d.timeSlot, maxCapacity: d.maxCapacity, avgConsultationTime: d.avgConsultationTime }; })) %>"
+         data-bookings="<%= JSON.stringify(bookings.map(function(b) { return { doctorName: b.doctorName, patientName: b.patientName }; })) %>">
+    </div>
+
+    <%- include('../partials/scripts', { extraScripts: ['/js/admin-dashboard.js'] }) %>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* =============================================
+   Hayat Hospital — public/css/doctor-dashboard.css
+   Doctor dashboard page specific styles
+============================================= */
+
+.doc-dash-mt-4 { margin-top: 4px; }
+.doc-dash-divider { border: 0; border-top: 1px solid var(--border); margin: 18px 0; }
+.doc-dash-mb-12 { margin-bottom: 12px; }
+.doc-dash-action-group { display: flex; gap: 10px; margin-top: 4px; }
+.doc-dash-btn-flex { flex: 1; }
+.btn-cancel-all {
+    padding: 12px 20px;
+    background: rgba(232,64,64,0.08);
+    color: var(--red);
+    border: 1px solid rgba(232,64,64,0.35);
+    border-radius: 12px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+.btn-cancel-all:hover {
+    background: rgba(232,64,64,0.15);
+}
+.doc-dash-hint { margin-top: 10px; font-size: 0.83rem; color: var(--subtle); }
+.doc-dash-empty-cell { text-align: center; color: var(--subtle); padding: 24px; }
+.doc-dash-no-history { color: var(--subtle); }
+.doc-dash-history-list { padding-left: 16px; margin: 0; font-size: 0.85em; color: var(--muted); list-style-type: disc; }
+.doc-dash-history-link { color: var(--blue); text-decoration: underline; word-break: break-all; }

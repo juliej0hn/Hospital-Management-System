@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head', { title: 'Doctor Dashboard', extraCss: ['/css/admin-dashboard.css', '/css/doctor-dashboard.css'] }) %>
+</head>
+<body>
+    <%- include('../partials/navbar', { role: 'doctor' }) %>
+
+    <div class="app-wrap">
+        <div class="view admin-view">
+
+            <!-- ── Header ── -->
+            <div class="view-header">
+                <h3>Welcome, <%= doctor.name %></h3>
+            </div>
+
+            <!-- ── SECTION 1: Current Slot + Update Form ── -->
+            <div class="card">
+                <div class="section-header">
+                    <h4>📅 Your Availability</h4>
+                </div>
+
+                <p><strong>Current Slot:</strong> <%= doctor.timeSlot || '—' %></p>
+                <p class="doc-dash-mt-4"><strong>Max Capacity:</strong> <%= doctor.maxCapacity %></p>
+
+                <hr class="doc-dash-divider">
+                <h4 class="doc-dash-mb-12">Update Time Slot</h4>
+
+                <div class="input-group availability-inputs">
+                    <div class="time-range">
+                        <input type="time" id="slot-start" required title="Start Time">
+                        <span>to</span>
+                        <input type="time" id="slot-end" required title="End Time">
+                    </div>
+                </div>
+
+                <div class="doc-dash-action-group">
+                    <button class="btn-form doc-dash-btn-flex" onclick="updateSlots()">💾 Update Slot</button>
+                    <button class="btn-cancel-all" onclick="clearSlot()">🗑 Cancel All</button>
+                </div>
+
+                <p class="doc-dash-hint">
+                    Updating recalculates capacity — patients beyond the new limit are removed and notified via Email.
+                    <strong>"Cancel All"</strong> removes all bookings and clears your slot.
+                </p>
+            </div>
+
+            <!-- ── SECTION 2: Current Queue ── -->
+            <div class="card">
+                <div class="section-header">
+                    <h4>📋 Current Queue (<%= bookings.length %> / <%= doctor.maxCapacity %>)</h4>
+                </div>
+
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Patient Name</th>
+                            <th>Type</th>
+                            <th>Medical History</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (bookings.length === 0) { %>
+                            <tr>
+                                <td colspan="4" class="doc-dash-empty-cell">
+                                    No patients in queue.
+                                </td>
+                            </tr>
+                        <% } else { %>
+                            <% bookings.forEach(function(b, index) { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= b.patientName %></td>
+                                    <td><%= b.appointmentType %></td>
+                                    <td>
+                                        <% let hasHistory = (b.medicalHistory && b.medicalHistory.length > 0); %>
+                                        
+                                        <% if (!hasHistory) { %>
+                                            <span class="doc-dash-no-history">No history</span>
+                                        <% } else { %>
+                                            <ul class="doc-dash-history-list">
+                                                <% b.medicalHistory.forEach(function(item) { %>
+                                                    <% if (item.includes('|')) { 
+                                                        const parts = item.split('|');
+                                                        const orig = parts[0];
+                                                        const stored = parts[1] || parts[0];
+                                                    %>
+                                                        <li>
+                                                            <% if (stored.startsWith('http')) { %>
+                                                                <a href="<%= stored %>" target="_blank" class="doc-dash-history-link"><%= orig %></a>
+                                                            <% } else { %>
+                                                                <a href="/uploads/<%= stored %>" target="_blank" class="doc-dash-history-link"><%= orig %></a>
+                                                            <% } %>
+                                                        </li>
+                                                    <% } else { %>
+                                                        <li><%= item %></li>
+                                                    <% } %>
+                                                <% }); %>
+                                            </ul>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <%- include('../partials/scripts', { extraScripts: ['/js/doctor-dashboard.js'] }) %>
+</body>
+</html>

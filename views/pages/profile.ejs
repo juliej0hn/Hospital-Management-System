@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head', { title: 'My Profile', extraCss: ['/css/base.css', '/css/profile.css'] }) %>
+
+</head>
+<body>
+    <%- include('../partials/navbar', { role: 'client' }) %>
+
+    <div class="profile-container">
+        <div class="card">
+            <h3>👤 My Profile</h3>
+            <p><strong>Name:</strong> <%= user.firstName %> <%= user.lastName %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+
+            <!-- Phone — editable inline -->
+            <form action="/client/profile/update-phone" method="POST" class="profile-phone-form" onsubmit="return validatePhone()">
+                <label class="profile-phone-label">📱 Phone Number</label>
+                <div class="profile-phone-group">
+                    <input type="text" name="phone" id="phone-input"
+                           value="<%= user.phone || '' %>"
+                           placeholder="e.g. +1234567890"
+                           class="profile-phone-input">
+                    <button type="submit" class="btn-add">Save</button>
+                </div>
+                <p id="phone-error" class="profile-error-msg"></p>
+                <% if (!user.phone) { %>
+                    <p class="profile-warn-msg">⚠️ No phone number saved on your profile.</p>
+                <% } %>
+                <% if (locals.phoneSuccess) { %>
+                    <p class="profile-success-msg">✅ Phone number updated.</p>
+                <% } %>
+            </form>
+        </div>
+
+        <div class="card">
+            <h4>📅 My Appointments</h4>
+            <div id="appointments-list">
+                <% if (appointments.length === 0) { %>
+                    <p>No active appointments.</p>
+                <% } else { %>
+                    <% appointments.forEach(function(appt) { %>
+                        <div class="appt-item">
+                            <div>
+                                <strong><%= appt.doctorName %></strong><br>
+                                <small>Position: #<%= appt.positionInLine %> | Time: <%= new Date(appt.appointmentTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %></small>
+                            </div>
+                            <div>
+                                <span class="badge"><%= appt.appointmentType %></span>
+                                <% 
+                                    const now = new Date();
+                                    const apptTime = new Date(appt.appointmentTime);
+                                    const diffMins = (apptTime - now) / (1000 * 60);
+                                    if (diffMins > 60) {
+                                %>
+                                    <button class="btn-cancel-red" onclick="cancelAppointment('<%= appt._id %>')">Cancel</button>
+                                <% } else { %>
+                                    <span class="profile-locked-badge">🔒 Locked</span>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4>📂 Medical History & Reports</h4>
+            <div id="reports-list">
+                <% if (user.medicalHistory && user.medicalHistory.length > 0) { %>
+                    <% user.medicalHistory.forEach(function(item) { 
+                        let orig = item, stored = null;
+                        if (item.includes('|')) {
+                            const parts = item.split('|');
+                            orig = parts[0];
+                            stored = parts[1] || parts[0];
+                        }
+                    %>
+                        <div class="report-item">
+                            <span><%= orig %></span>
+                            <% if (stored) { %>
+                                <% if (stored.startsWith('http')) { %>
+                                    <a href="<%= stored %>" target="_blank" class="btn-small">View Report</a>
+                                <% } else { %>
+                                    <a href="/uploads/<%= stored %>" target="_blank" class="btn-small">View Report</a>
+                                <% } %>
+                            <% } else { %>
+                            <span class="btn-small profile-record-btn">Record</span>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p class="profile-empty-msg">No history or reports uploaded yet.</p>
+                <% } %>
+            </div>
+            <hr class="profile-divider">
+            <h5>📤 Upload New Record</h5>
+            <form action="/client/profile/upload" method="POST" enctype="multipart/form-data" class="upload-form" onsubmit="return validateUpload()">
+                <input type="file" name="reportFile" id="report-file" required class="upload-input"
+                       accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx">
+                <button type="submit" class="btn-add">Upload</button>
+            </form>
+            <p id="upload-error" class="profile-error-msg"></p>
+        </div>
+    </div>
+
+    <script src="/js/profile.js"></script>
+</body>
+</html>

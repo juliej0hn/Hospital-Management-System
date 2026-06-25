@@ -1,0 +1,113 @@
+/* =============================================
+   Hayat Hospital — public/css/admin-dashboard.css
+   Admin dashboard: doctor form, edit panel,
+   live queue table
+============================================= */
+
+.admin-view { max-width: 860px; margin: 0 auto; padding: 20px; }
+
+/* ── View header ──────────────────────────── */
+.view-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px; margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+.view-header h3 { font-size: 1.1rem; font-weight: 600; color: var(--dark); }
+
+/* ── Section header ───────────────────────── */
+.section-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+}
+.section-header h4 { margin: 0; }
+
+/* ── Doctor Entry Form Grid ───────────────── */
+.doctor-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+/* ── Live Queue Table ─────────────────────── */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 10px;
+}
+.dashboard-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    background-color: var(--surface);
+    border-bottom: 2px solid var(--border);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.dashboard-table tbody td {
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--dark);
+    vertical-align: top;
+}
+.dashboard-table tbody tr:last-child td { border-bottom: none; }
+.dashboard-table tbody tr:hover { background-color: var(--surface); }
+
+/* ── Doctor name as clickable edit link ───── */
+.doctor-link {
+    color: var(--blue);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.doctor-link:hover { opacity: 0.75; }
+
+/* ── Toggle form button ───────────────────── */
+.btn-toggle-form {
+    padding: 5px 13px; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--white); color: var(--muted); font-size: 0.78rem;
+    cursor: pointer; font-family: inherit; transition: all 0.2s;
+}
+.btn-toggle-form:hover { background-color: var(--surface); }
+
+@media (max-width: 600px) {
+    .doctor-form-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Availability Inputs ──────────────────── */
+.availability-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.time-range {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.time-range input {
+    flex: 1;
+}
+.time-range span {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.admin-dash-empty {
+    text-align: center;
+    color: var(--subtle);
+    padding: 20px;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}

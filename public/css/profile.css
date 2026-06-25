@@ -1,0 +1,26 @@
+/* =============================================
+   Hayat Hospital — public/css/profile.css
+   Profile page specific styles
+============================================= */
+
+.profile-container { max-width: 900px; margin: 40px auto; padding: 20px; }
+.card { background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 24px; }
+.report-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--border); }
+.appt-item { display: flex; justify-content: space-between; align-items: center; padding: 18px; border-bottom: 1px solid var(--border); }
+.btn-cancel-red { background: var(--red); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.82rem; transition: opacity 0.2s; }
+.btn-cancel-red:hover { opacity: 0.85; }
+.upload-form { margin-top: 20px; display: flex; gap: 10px; align-items: center; }
+.upload-input { flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; }
+
+/* Inline styles converted to classes */
+.profile-phone-form { margin-top: 14px; }
+.profile-phone-label { font-size: 0.88rem; font-weight: 600; color: var(--muted); }
+.profile-phone-group { display: flex; gap: 10px; margin-top: 6px; align-items: center; }
+.profile-phone-input { flex: 1; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 0.92rem; }
+.profile-error-msg { font-size: 0.82rem; color: var(--red); margin-top: 6px; display: none; }
+.profile-warn-msg { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+.profile-success-msg { font-size: 0.82rem; color: var(--green); margin-top: 6px; }
+.profile-locked-badge { color: var(--red); font-weight: 600; font-size: 0.85rem; }
+.profile-record-btn { background: none; color: var(--muted); padding: 0; }
+.profile-empty-msg { color: var(--muted); }
+.profile-divider { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }

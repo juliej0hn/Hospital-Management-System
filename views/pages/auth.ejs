@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head', { title: 'Patient Login', extraCss: ['/css/auth.css'] }) %>
+</head>
+<body>
+
+    <%- include('../partials/navbar', { role: 'auth' }) %>
+
+    <div class="app-wrap">
+        <div class="auth-view-wrap">
+            <div class="auth-card card">
+                <h2>Patient Portal</h2>
+                <div id="auth-error" class="auth-error-msg hidden"></div>
+
+                <div class="auth-tabs">
+                    <button class="tab-btn active" id="login-tab"  onclick="switchTab('login')">Login</button>
+                    <button class="tab-btn"        id="signup-tab" onclick="switchTab('signup')">Sign Up</button>
+                </div>
+
+                <form id="auth-form" method="POST" action="/auth/login" onsubmit="handleAuth(event)">
+                    <div id="signup-fields" class="signup-fields hidden">
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="text" id="first-name" name="firstName" placeholder="First Name">
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="last-name" name="lastName" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="phone" name="phone" placeholder="Phone Number (e.g. +1234567890)">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+
+                    <input type="hidden" id="role-input" name="role" value="client">
+                    <button type="submit" class="btn-form" id="auth-submit">Login</button>
+                </form>
+
+                <p class="auth-back-box">
+                    <a href="/" class="auth-back-link">← Back to Home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/scripts', { extraScripts: ['/js/auth.js'] }) %>
+
+</body>
+</html>

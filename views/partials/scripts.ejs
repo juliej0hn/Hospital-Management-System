@@ -1,0 +1,9 @@
+<%- /* Hayat Hospital — views/partials/scripts.ejs
+     Include at the bottom of every page body.
+     Pass: extraScripts (optional array of paths)
+*/ -%>
+<script src="/js/state.js"></script>
+
+<% if (typeof extraScripts !== 'undefined') { extraScripts.forEach(function(src){ %>
+<script src="<%= src %>"></script>
+<% }); } %>

@@ -1,0 +1,33 @@
+<%- /* Hayat Hospital — views/partials/navbar.ejs
+     Pass: role ('landing' | 'client' | 'admin' | 'doctor')
+*/ -%>
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="/" class="logo"><span class="nav-logo-icon">✚</span> Hayat Hospital<% if (typeof role !== 'undefined' && role === 'admin') { %> <span class="admin-badge">Admin</span><% } %></a>
+        <ul class="nav-links">
+
+            <% if (typeof role === 'undefined' || role === 'landing') { %>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="/auth"         class="btn-nav-cta btn-nav-patient">Patient Portal</a></li>
+                <li><a href="/doctor/login" class="btn-nav-cta btn-nav-doctor">Doctor Portal</a></li>
+                <li><a href="/admin/login"  class="btn-nav-cta btn-nav-admin">Admin Portal</a></li>
+
+            <% } else if (role === 'client') { %>
+                <li><a href="/client/dashboard">Dashboard</a></li>
+                <li><a href="/client/profile">Profile</a></li>
+                <li><a href="/auth/logout" class="btn-nav-cta">Logout</a></li>
+
+            <% } else if (role === 'admin') { %>
+                <li><a href="/admin/logout" class="btn-nav-cta btn-admin-logout">Logout</a></li>
+
+            <% } else if (role === 'doctor') { %>
+                <li><a href="/doctor/dashboard">My Queue</a></li>
+                <li><a href="/doctor/logout" class="btn-nav-cta">Logout</a></li>
+
+            <% } %>
+
+        </ul>
+    </div>
+</nav>

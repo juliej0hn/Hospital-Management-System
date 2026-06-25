@@ -1,0 +1,31 @@
+/* =============================================
+   Hayat Hospital — public/css/admin-login.css
+   Admin login page specific styles
+============================================= */
+
+/* Admin login uses gateway-wrap + auth-card from components.css */
+
+.admin-login-wrap {
+    display: flex; justify-content: center; align-items: center;
+    min-height: calc(100vh - 60px); padding: 20px;
+}
+.admin-login-card { max-width: 400px; width: 100%; }
+.admin-login-header { text-align: center; margin-bottom: 24px; }
+.admin-login-header span { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+.admin-error-box {
+    color: var(--red);
+    background: rgba(232,64,64,0.08);
+    border: 1px solid rgba(232,64,64,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.86rem;
+    margin-bottom: 14px;
+}
+.back-link-box {
+    text-align: center;
+    margin-top: 16px;
+}
+.back-link {
+    color: var(--subtle);
+    font-size: 0.82rem;
+}

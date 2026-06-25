@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head', { title: 'Doctor Login', extraCss: ['/css/doctor-login.css'] }) %>
+
+</head>
+<body>
+    <div class="login-wrap">
+        <div class="login-box">
+            <h2>👨‍⚕️ Doctor Portal</h2>
+            <p class="subtitle">Select your name and enter your password</p>
+
+            <% if (error === 'invalid') { %>
+                <div class="error-msg">Incorrect password. Please try again.</div>
+            <% } else if (error === 'notfound') { %>
+                <div class="error-msg">Doctor not found. Please select your name from the list.</div>
+            <% } %>
+
+            <% if (doctors.length === 0) { %>
+                <div class="error-msg">No doctors have been registered yet. Please ask the admin to add doctors first.</div>
+            <% } else { %>
+                <form action="/doctor/login" method="POST">
+                    <div class="input-group">
+                        <select name="doctorName" required>
+                            <option value="">Select Your Name</option>
+                            <% doctors.forEach(function(d) { %>
+                                <option value="<%= d.name %>"><%= d.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-form btn-login-full">Login</button>
+                </form>
+            <% } %>
+
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

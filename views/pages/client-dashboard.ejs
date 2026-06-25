@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head', { title: 'Book an Appointment', extraCss: ['/css/client-dashboard.css'] }) %>
+</head>
+<body>
+
+    <%- include('../partials/navbar', { role: 'client' }) %>
+
+    <div class="app-wrap">
+        <div class="view">
+
+            <div class="view-header">
+                <h3>Find a Doctor</h3>
+            </div>
+
+            <!-- Sector filter -->
+            <div class="filter-bar">
+                <label for="sector-filter">Filter by Specialty:</label>
+                <select id="sector-filter" onchange="filterDoctors()">
+                    <option value="all">All Departments</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="General">General</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                </select>
+            </div>
+
+            <!-- Doctor cards rendered by client-dashboard.js -->
+            <div id="doctor-list"></div>
+
+        </div>
+    </div>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-overlay hidden" id="modal">
+        <div class="modal-sheet">
+            <h4 id="modal-doctor-name">Book Appointment</h4>
+
+            <form id="booking-form" onsubmit="confirmBooking(event)">
+                <div class="input-group client-dash-mt-14">
+                    <input type="text" id="patient-name" placeholder="Patient Name" required>
+                </div>
+
+                <div class="input-group">
+                    <select id="appointment-type" required>
+                        <option value="Consultation">Consultation</option>
+                        <option value="Follow-up">Follow-up</option>
+                        <option value="Lab Result">Lab Result</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-form" id="confirm-booking-btn">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Inject server data BEFORE the page script -->
+    <div id="server-data" style="display:none;"
+         data-doctors="<%= JSON.stringify(doctors.map(function(d) { return { name: d.name, sector: d.sector, timeSlot: d.timeSlot, maxCapacity: d.maxCapacity }; })) %>"
+         data-bookings="<%= JSON.stringify(bookings.map(function(b) { return { doctorName: b.doctorName, patientId: b.patientId }; })) %>"
+         data-my-appointments="<%= JSON.stringify(myBookings.map(function(b) { return { doctorName: b.doctorName }; })) %>"
+         data-logged-in-name="<%= user ? user.firstName + ' ' + user.lastName : '' %>">
+    </div>
+
+    <%- include('../partials/scripts', { extraScripts: ['/js/client-dashboard.js'] }) %>
+
+</body>
+</html>
